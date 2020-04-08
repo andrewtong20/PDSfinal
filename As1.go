@@ -13,11 +13,62 @@ package main
 
 import (
   "fmt"
-  "strings"
   "bufio" //this is the scanner
   "os" //to accept input from user
+  "strconv" //string conversion for inputs
+  "log"
   )
 
 func main() {
-	fmt.Printf("hello this is test one, one change, final test\n")
+  //Part 1: circle
+  //Inputs
+  //reader := bufio.NewReader(os.Stdin)
+  scanner := bufio.NewScanner(os.Stdin)
+  //User intro
+  fmt.Println("Welcome to Andrew's Assignment 1.")
+  fmt.Println("This program will: ")
+  fmt.Println("1) take a radius  and x/y coordinates to find the location, area, circumference,\n volume and surface area of the circle/sphere")
+  fmt.Println("2) takes a length in meters, converts it to miles, feet, and inches, \n and outputs it to \"meters.txt\"")
+  fmt.Println("3) takes a line of text, outputs the line with the first word moved to the end of the line,\n and prints the length of the string. ")
+  fmt.Println()
+  fmt.Println("You are entering the first part of the program where we will construct a circle.")
+  fmt.Println("The program will ask for x/y coordinates and a radius and output the location, area,\n circumference, volume, and surface area.")
+
+  //Instructions ask to prompt user to input their name to address them later
+  fmt.Print("What is your name?")
+  scanner.Scan()
+  user:= scanner.Text()
+  //user, err := reader.ReadString('\n')//ReadBytes returns two values, other stored in null variable
+  //user, error := reader.ReadBytes('\n')//ReadBytes returns two values, other stored in null variable
+  //bounds check
+  /*if err != nil {
+    panic(err)
+  }*/
+
+  fmt.Println(user+", what is the x coordinate of your circle?")
+  scanner.Scan()
+  xCoordStr:= scanner.Text()
+
+  //convert string to float
+  xCoord, err := strconv.ParseFloat(xCoordStr, 64)
+  if err != nil {
+    log.Fatal(err)
+  }
+  fmt.Printf("your x coord is %f",xCoord)
+
+  //fmt.Println("your x coord is: "+xCoordStr)
+  /*
+  xCoordStr, err := reader.ReadString('\n')
+  if err != nil {
+    panic(err)
+  }
+  //convert string to float
+  xCoord, err := strconv.ParseFloat(xCoordStr,64)
+  if err != nil {
+        log.Fatal(err)
+  }
+
+  fmt.Printf("Your x coord is: %f", xCoord)
+*/
+  //go uses structs instead of objects
 }
