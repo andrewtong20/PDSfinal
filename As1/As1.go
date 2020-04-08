@@ -17,11 +17,12 @@ import (
   "os" //to accept input from user
   "strconv" //string conversion for inputs
   "log"
-  "As1/circle"//import struct
+  //"As1/circle"//import struct
   )
 
 func main() {
   //Part 1: circle
+  
   //Inputs
   scanner := bufio.NewScanner(os.Stdin)
   //User intro
@@ -65,13 +66,27 @@ func main() {
     log.Fatal(err)
   }
   //go uses structs instead of objects
-
+  c:=Circle {
+    x: xCoord,
+    y: yCoord,
+    radius: radius,
+  }
 
   fmt.Println()
 
   //Outputs
-  fmt.Printf("your x coord is %f, your y coord is %f, your radius is %f \n",xCoord, yCoord, radius)
 
+  fmt.Println(user+", your circle has the following values.")
+  //instructions do not require rounding on location; best to be exact
+  fmt.Printf("X Coordinate: %f \nY Coordinate: %f \n", xCoord, yCoord)
 
+  //Calculated values: these are rounded to 2 digits for readability
+  fmt.Printf("Area (rounded to 2 decimal places): %.2f \n", c.getArea())
+  fmt.Printf("Circumference (rounded to 2 decimal places): %.2f \n", c.getCircum())
+  fmt.Println()
+
+  fmt.Println(user+", if your circle was a sphere with the same radius, it would have these following values.")
+  fmt.Printf("Volume (rounded to 2 decimal places): %.2f \n", c.getVolume())
+  fmt.Printf("Surface area (rounded to 2 decimal places): %.2f \n", c.getSurfaceA())
 
 }
