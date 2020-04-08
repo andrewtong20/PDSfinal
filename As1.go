@@ -22,7 +22,6 @@ import (
 func main() {
   //Part 1: circle
   //Inputs
-  //reader := bufio.NewReader(os.Stdin)
   scanner := bufio.NewScanner(os.Stdin)
   //User intro
   fmt.Println("Welcome to Andrew's Assignment 1.")
@@ -38,12 +37,6 @@ func main() {
   fmt.Print("What is your name?")
   scanner.Scan()
   user:= scanner.Text()
-  //user, err := reader.ReadString('\n')//ReadBytes returns two values, other stored in null variable
-  //user, error := reader.ReadBytes('\n')//ReadBytes returns two values, other stored in null variable
-  //bounds check
-  /*if err != nil {
-    panic(err)
-  }*/
 
   fmt.Println(user+", what is the x coordinate of your circle?")
   scanner.Scan()
@@ -56,19 +49,6 @@ func main() {
   }
   fmt.Printf("your x coord is %f",xCoord)
 
-  //fmt.Println("your x coord is: "+xCoordStr)
-  /*
-  xCoordStr, err := reader.ReadString('\n')
-  if err != nil {
-    panic(err)
-  }
-  //convert string to float
-  xCoord, err := strconv.ParseFloat(xCoordStr,64)
-  if err != nil {
-        log.Fatal(err)
-  }
 
-  fmt.Printf("Your x coord is: %f", xCoord)
-*/
   //go uses structs instead of objects
 }
