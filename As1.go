@@ -11,9 +11,13 @@ Finally, it reads a line of text from the user, outputs the line with the first 
 
 package main
 
-import "fmt"
+import (
+  "fmt"
+  "strings"
+  "bufio" //this is the scanner
+  "os" //to accept input from user
+  )
 
-func main()
-{
+func main() {
 	fmt.Printf("hello this is test one, one change, final test\n")
 }
