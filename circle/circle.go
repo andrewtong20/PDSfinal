@@ -3,3 +3,12 @@
  circumference if it is a circle and the volume and surface area if it is a
  sphere.
  */
+package circle
+
+import (
+  "fmt"
+)
+
+type circle struct {
+  
+}
