@@ -42,13 +42,35 @@ func main() {
   scanner.Scan()
   xCoordStr:= scanner.Text()
 
-  //convert string to float
+  fmt.Println(user+", what is the y coordinate of your circle?")
+  scanner.Scan()
+  yCoordStr:= scanner.Text()
+
+  fmt.Println(user+", what is the radius of your circle?")
+  scanner.Scan()
+  radiusStr:= scanner.Text()
+
+  //convert strings to floats
   xCoord, err := strconv.ParseFloat(xCoordStr, 64)
   if err != nil {
     log.Fatal(err)
   }
-  fmt.Printf("your x coord is %f",xCoord)
-
-
+  yCoord, err := strconv.ParseFloat(yCoordStr, 64)
+  if err != nil {
+    log.Fatal(err)
+  }
+  radius, err := strconv.ParseFloat(radiusStr, 64)
+  if err != nil {
+    log.Fatal(err)
+  }
   //go uses structs instead of objects
+  
+
+  fmt.Println()
+
+  //Outputs
+  fmt.Printf("your x coord is %f, your y coord is %f, your radius is %f \n",xCoord, yCoord, radius)
+
+
+
 }
