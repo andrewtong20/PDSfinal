@@ -17,7 +17,7 @@ import (
   "os" //to accept input from user
   "strconv" //string conversion for inputs
   "log"
-  "PDSfinal/circle"//import struct
+  "As1/circle"//import struct
   )
 
 func main() {
