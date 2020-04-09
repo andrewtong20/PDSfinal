@@ -18,6 +18,7 @@ import (
   "strconv" //string conversion for inputs
   "log"//for scanner errors
   "math"
+  "io"
   )
 
 //Part 1: circle
@@ -139,8 +140,35 @@ func part2(inUser string) {
   fmt.Printf("%d feet\n", feetFinal);
   fmt.Printf("%.2f inches \n", inches);//only inches should be a double and for ease of use, rounded to 2 decimal places.
 
+
+  //format data for output
+
+  metersOut:=fmt.Sprintf("%f",meters)
+  milesOut:=strconv.Itoa(milesFinal)
+  feetOut:=strconv.Itoa(feetFinal)
+  inchesOut:=fmt.Sprintf("%.2f",inches)
+  finalOutput:=metersOut+"\n"+milesOut+"\n"+feetOut+"\n"+inchesOut+"\n"
+
   //output to file
-  //NEED TO ADD
+  error := WriteToFile("meters.txt", finalOutput)
+  if error != nil {
+      log.Fatal(error)
+  }
+}
+
+func WriteToFile(fileName string, fileText string) error {
+  file, err := os.Create(fileName)
+  if err != nil {
+      return err
+  }
+  defer file.Close()
+
+  //uses _ for null variables because golang does not allow unused variables
+  _, err = io.WriteString(file, fileText)
+  if err != nil {
+      return err
+  }
+  return file.Sync()
 }
 
 func main() {
