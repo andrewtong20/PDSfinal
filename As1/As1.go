@@ -19,6 +19,7 @@ import (
   "log"//for scanner errors
   "math"
   "io"
+  "strings"
   )
 
 //Part 1: circle
@@ -100,7 +101,7 @@ const (
   meters2inches=.0254
 )
 
-func part2(inUser string) {
+func part2(inUser string) string{
   User:=inUser
   scanner := bufio.NewScanner(os.Stdin)
   fmt.Println()
@@ -154,6 +155,7 @@ func part2(inUser string) {
   if error != nil {
       log.Fatal(error)
   }
+  return User
 }
 
 func WriteToFile(fileName string, fileText string) error {
@@ -171,7 +173,49 @@ func WriteToFile(fileName string, fileText string) error {
   return file.Sync()
 }
 
+//Part 3: String Manipulation
+func part3(inUser string) {
+   User:=inUser
+   scanner := bufio.NewScanner(os.Stdin)
+   fmt.Println()
+   fmt.Println()
+   fmt.Println(User+", you are now entering the third part of the program.")
+   fmt.Println("This part will take a line of text and move the first word to the end,\n changing the capitalizations of the first two words to \n match the creation of a new sentence, and finds the length of the string")
+   fmt.Println("Enter a line of text.  No punctuation please.")
+   scanner.Scan()
+   userInput:= scanner.Text()
+
+   fmt.Println("I have rephrased the line to read: ")
+
+   //identifies the position of the first character in first word/substring
+   endPosition:=strings.Index(userInput," ")
+   firstWord:=userInput[0:endPosition]
+   startPosition:=endPosition+1
+   restOfSentence:=userInput[startPosition:len(userInput)]
+
+   //capitalizations
+   char1:=string(firstWord[0])
+   //instructions require the first word's first character to be lower case because it will be at the end of a sentence.
+   char1Down:=strings.ToLower(char1)
+   firstWordTrunc:=firstWord[1:endPosition]
+   firstWordOutput:=char1Down+firstWordTrunc
+
+   char2:=string(restOfSentence[0])
+   //instructions require the second word's first character to be upper case because it begins a sentence.
+   char2Up:=strings.ToUpper(char2)
+   restOfSentenceTrunc:=restOfSentence[1:len(restOfSentence)]
+   restOfSentenceOutput:=char2Up+restOfSentenceTrunc
+
+   fmt.Println(restOfSentenceOutput+" "+firstWordOutput)
+
+   //finding length
+   fmt.Printf("The line of text has %d characters in it.",len(userInput))
+
+   fmt.Println()
+   fmt.Println(User+", thank you for using Andrew's As1!")
+
+}
+
 func main() {
-  //part1()
-  part2(part1())
+   part3(part2(part1()))
 }
