@@ -16,13 +16,12 @@ import (
   "bufio" //this is the scanner
   "os" //to accept input from user
   "strconv" //string conversion for inputs
-  "log"
-  //"As1/circle"//import struct
+  "log"//for scanner errors
+  "math"
   )
 
-func main() {
-  //Part 1: circle
-  
+//Part 1: circle
+func part1() string{
   //Inputs
   scanner := bufio.NewScanner(os.Stdin)
   //User intro
@@ -38,17 +37,17 @@ func main() {
   //Instructions ask to prompt user to input their name to address them later
   fmt.Print("What is your name?")
   scanner.Scan()
-  user:= scanner.Text()
+  User:= scanner.Text()
 
-  fmt.Println(user+", what is the x coordinate of your circle?")
+  fmt.Println(User+", what is the x coordinate of your circle?")
   scanner.Scan()
   xCoordStr:= scanner.Text()
 
-  fmt.Println(user+", what is the y coordinate of your circle?")
+  fmt.Println(User+", what is the y coordinate of your circle?")
   scanner.Scan()
   yCoordStr:= scanner.Text()
 
-  fmt.Println(user+", what is the radius of your circle?")
+  fmt.Println(User+", what is the radius of your circle?")
   scanner.Scan()
   radiusStr:= scanner.Text()
 
@@ -76,7 +75,7 @@ func main() {
 
   //Outputs
 
-  fmt.Println(user+", your circle has the following values.")
+  fmt.Println(User+", your circle has the following values.")
   //instructions do not require rounding on location; best to be exact
   fmt.Printf("X Coordinate: %f \nY Coordinate: %f \n", xCoord, yCoord)
 
@@ -85,8 +84,66 @@ func main() {
   fmt.Printf("Circumference (rounded to 2 decimal places): %.2f \n", c.getCircum())
   fmt.Println()
 
-  fmt.Println(user+", if your circle was a sphere with the same radius, it would have these following values.")
+  fmt.Println(User+", if your circle was a sphere with the same radius, it would have these following values.")
   fmt.Printf("Volume (rounded to 2 decimal places): %.2f \n", c.getVolume())
   fmt.Printf("Surface area (rounded to 2 decimal places): %.2f \n", c.getSurfaceA())
 
+  return User
+}
+
+//Part 2: meter conversion
+//conversion factors from google
+const (
+  meters2miles=1609.34 //conversion factors from Google
+  meters2feet=.3048
+  meters2inches=.0254
+)
+
+func part2(inUser string) {
+  User:=inUser
+  scanner := bufio.NewScanner(os.Stdin)
+  fmt.Println()
+  fmt.Println()
+  fmt.Println(User+", you are now entering the second part of the program.")
+  fmt.Println("The program will ask for a length in meters and convert it to its equivalent miles, \n feet, and inches and output these values to \"meters.txt\"")
+
+  fmt.Println("What is your length in meters (do not input units)?")
+  scanner.Scan()
+  metersStr:= scanner.Text()
+
+  //str to float conversion
+  meters, err := strconv.ParseFloat(metersStr, 64)
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  //dividing by miles
+  metersRemain := math.Mod(meters,meters2miles);//remainder division to get meters left over that could not be converted to whole miles
+  miles := (meters-metersRemain)/meters2miles; //integer division to get the miles in integer form from meters
+
+  //convert to integer so that the miles won't have the unnecessary decimal of .0 when displaying it
+  milesFinal:= int(miles);
+
+  //dividing by feet
+  metersRemain2:=math.Mod(metersRemain,meters2feet);//remainder division to get meters left over not divisible into feet
+  feet:=(metersRemain-metersRemain2)/meters2feet; //integer division to get feet in integer form from meters
+  feetFinal:= int(feet); //removes unnecessary .0 for visual pleasure
+
+  //dividing by inches
+  inches:=metersRemain2/meters2inches;//double division because the inches division will not be an exact integer.
+
+  //conversion
+
+  fmt.Printf(User+", your length of %f meters is equivalent to:\n", meters);
+  fmt.Printf("%d miles\n", milesFinal);//units required for user experience
+  fmt.Printf("%d feet\n", feetFinal);
+  fmt.Printf("%.2f inches \n", inches);//only inches should be a double and for ease of use, rounded to 2 decimal places.
+
+  //output to file
+  //NEED TO ADD
+}
+
+func main() {
+  //part1()
+  part2(part1())
 }

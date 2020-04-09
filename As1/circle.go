@@ -13,12 +13,6 @@ import (
 type Circle struct {
   x,y,radius float64
 }
-/*
-//constructor
-func New(x, y, radius float64) circle {
-  c:= circle {x,y,radius}
-  return c
-}*/
 
 func (c Circle) getArea() float64 {
   return math.Pi*math.Pow(c.radius,2)
