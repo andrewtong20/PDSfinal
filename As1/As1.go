@@ -17,9 +17,9 @@ import (
   "os" //to accept input from user
   "strconv" //string conversion for inputs
   "log"//for scanner errors
-  "math"
-  "io"
-  "strings"
+  "math"//for math
+  "io"//for file writer
+  "strings"//for substrings and manipulation
   )
 
 //Part 1: circle
