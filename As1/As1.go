@@ -21,7 +21,7 @@ import (
   )
 
 //Part 1: circle
-func part1() {
+func part1() string{
   //Inputs
   scanner := bufio.NewScanner(os.Stdin)
   //User intro
@@ -88,6 +88,7 @@ func part1() {
   fmt.Printf("Volume (rounded to 2 decimal places): %.2f \n", c.getVolume())
   fmt.Printf("Surface area (rounded to 2 decimal places): %.2f \n", c.getSurfaceA())
 
+  return User
 }
 
 //Part 2: meter conversion
@@ -98,11 +99,12 @@ const (
   meters2inches=.0254
 )
 
-func part2() {
+func part2(inUser string) {
+  User:=inUser
   scanner := bufio.NewScanner(os.Stdin)
   fmt.Println()
   fmt.Println()
-  fmt.Println("You are now entering the second part of the program.")
+  fmt.Println(User+", you are now entering the second part of the program.")
   fmt.Println("The program will ask for a length in meters and convert it to its equivalent miles, \n feet, and inches and output these values to \"meters.txt\"")
 
   fmt.Println("What is your length in meters (do not input units)?")
@@ -132,7 +134,7 @@ func part2() {
 
   //conversion
 
-  fmt.Printf("Your length of %f meters is equivalent to:\n", meters);
+  fmt.Printf(User+", your length of %f meters is equivalent to:\n", meters);
   fmt.Printf("%d miles\n", milesFinal);//units required for user experience
   fmt.Printf("%d feet\n", feetFinal);
   fmt.Printf("%.2f inches \n", inches);//only inches should be a double and for ease of use, rounded to 2 decimal places.
@@ -142,6 +144,6 @@ func part2() {
 }
 
 func main() {
-  part1()
-  part2()
+  //part1()
+  part2(part1())
 }
