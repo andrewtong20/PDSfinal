@@ -106,7 +106,10 @@ func part1() string{
 
   fmt.Println(User+", your circle has the following values.")
   //instructions do not require rounding on location; best to be exact
-  fmt.Printf("X Coordinate: %f \nY Coordinate: %f \n", xCoord, yCoord)
+  //but I do not want trailing zeros (the -1 removes that)
+  xCoordFormat:=strconv.FormatFloat(xCoord, 'f', -1, 64)
+  yCoordFormat:=strconv.FormatFloat(yCoord, 'f', -1, 64)
+  fmt.Print("X Coordinate: "+xCoordFormat+ "\nY Coordinate: "+yCoordFormat +"\n")
 
   //Calculated values: these are rounded to 2 digits for readability
   fmt.Printf("Area (rounded to 2 decimal places): %.2f \n", c.getArea())
@@ -155,8 +158,9 @@ func part2(inUser string) string{
   inches:=metersRemain2/meters2inches;//double division because the inches division will not be an exact integer.
 
   //conversion
-
-  fmt.Printf(User+", your length of %f meters is equivalent to:\n", meters);
+  //format meters without trailing zeros
+  metersFormat:=strconv.FormatFloat(meters, 'f', -1, 64)
+  fmt.Printf(User+", your length of %s meters is equivalent to:\n", metersFormat);
   fmt.Printf("%d miles\n", milesFinal);//units required for user experience
   fmt.Printf("%d feet\n", feetFinal);
   fmt.Printf("%.2f inches \n", inches);//only inches should be a double and for ease of use, rounded to 2 decimal places.
@@ -164,7 +168,7 @@ func part2(inUser string) string{
 
   //format data for output
 
-  metersOut:=fmt.Sprintf("%f",meters)
+  metersOut:=fmt.Sprintf("%s",metersFormat)
   milesOut:=strconv.Itoa(milesFinal)
   feetOut:=strconv.Itoa(feetFinal)
   inchesOut:=fmt.Sprintf("%.2f",inches)
