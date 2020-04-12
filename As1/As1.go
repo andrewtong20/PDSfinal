@@ -22,6 +22,48 @@ import (
   "strings"//for substrings and manipulation
   )
 
+//Number bounds check
+func isFloat() float64 {
+  scanner := bufio.NewScanner(os.Stdin)
+
+  for true {
+
+    fmt.Print("Input: ")
+    scanner.Scan()
+
+    input := scanner.Text()
+    if inputConv, err := strconv.ParseFloat(input, 64); err == nil {
+      return inputConv
+    } else {
+      fmt.Println("This is not a number. Please enter a valid number.")
+    }
+
+
+  }
+  //function has to return something; 0 has no meaning
+  return 0
+}
+
+//String bounds check
+func isString() string {
+  scanner := bufio.NewScanner(os.Stdin)
+
+  for true {
+
+    fmt.Print("Input: ")
+    scanner.Scan()
+
+    input := scanner.Text()
+    if _, err := strconv.ParseFloat(input, 64); err != nil {
+      return input
+    } else {
+      fmt.Println("This is not a string. Please enter a valid string.")
+    }
+
+  }
+  return " "
+}
+
 //Part 1: circle
 func part1() string{
   //Inputs
@@ -37,35 +79,20 @@ func part1() string{
   fmt.Println("The program will ask for x/y coordinates and a radius and output the location, area,\n circumference, volume, and surface area.")
 
   //Instructions ask to prompt user to input their name to address them later
+  //No bounds check for name because it can be anything (can't violate user expression)
   fmt.Print("What is your name?")
   scanner.Scan()
   User:= scanner.Text()
 
   fmt.Println(User+", what is the x coordinate of your circle?")
-  scanner.Scan()
-  xCoordStr:= scanner.Text()
+  xCoord:=isFloat()
 
   fmt.Println(User+", what is the y coordinate of your circle?")
-  scanner.Scan()
-  yCoordStr:= scanner.Text()
+  yCoord:=isFloat()
 
   fmt.Println(User+", what is the radius of your circle?")
-  scanner.Scan()
-  radiusStr:= scanner.Text()
+  radius:=isFloat()
 
-  //convert strings to floats
-  xCoord, err := strconv.ParseFloat(xCoordStr, 64)
-  if err != nil {
-    log.Fatal(err)
-  }
-  yCoord, err := strconv.ParseFloat(yCoordStr, 64)
-  if err != nil {
-    log.Fatal(err)
-  }
-  radius, err := strconv.ParseFloat(radiusStr, 64)
-  if err != nil {
-    log.Fatal(err)
-  }
   //go uses structs instead of objects
   c:=Circle {
     x: xCoord,
@@ -103,21 +130,14 @@ const (
 
 func part2(inUser string) string{
   User:=inUser
-  scanner := bufio.NewScanner(os.Stdin)
+
   fmt.Println()
   fmt.Println()
   fmt.Println(User+", you are now entering the second part of the program.")
   fmt.Println("The program will ask for a length in meters and convert it to its equivalent miles, \n feet, and inches and output these values to \"meters.txt\"")
 
   fmt.Println("What is your length in meters (do not input units)?")
-  scanner.Scan()
-  metersStr:= scanner.Text()
-
-  //str to float conversion
-  meters, err := strconv.ParseFloat(metersStr, 64)
-  if err != nil {
-    log.Fatal(err)
-  }
+  meters:=isFloat()
 
   //dividing by miles
   metersRemain := math.Mod(meters,meters2miles);//remainder division to get meters left over that could not be converted to whole miles
@@ -176,14 +196,15 @@ func WriteToFile(fileName string, fileText string) error {
 //Part 3: String Manipulation
 func part3(inUser string) {
    User:=inUser
-   scanner := bufio.NewScanner(os.Stdin)
+
    fmt.Println()
    fmt.Println()
    fmt.Println(User+", you are now entering the third part of the program.")
    fmt.Println("This part will take a line of text and move the first word to the end,\n changing the capitalizations of the first two words to \n match the creation of a new sentence, and finds the length of the string")
    fmt.Println("Enter a line of text.  No punctuation please.")
-   scanner.Scan()
-   userInput:= scanner.Text()
+   userInput:=isString()
+   // scanner.Scan()
+   // userInput:= scanner.Text()
 
    fmt.Println("I have rephrased the line to read: ")
 
@@ -217,5 +238,5 @@ func part3(inUser string) {
 }
 
 func main() {
-   part3(part2(part1()))
+  part3(part2(part1()))
 }
