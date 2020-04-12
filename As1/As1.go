@@ -22,6 +22,26 @@ import (
   "strings"//for substrings and manipulation
   )
 
+func isFloat() float64 {
+  scanner := bufio.NewScanner(os.Stdin)
+
+  for true {
+
+    fmt.Print("Input: ")
+    scanner.Scan()
+
+    input := scanner.Text()
+    if inputConv, err := strconv.ParseFloat(input, 64); err == nil {
+      return inputConv
+    } else {
+      fmt.Println("This is not a number. Please enter a valid number.")
+    }
+
+
+  }
+  //function has to return something; 0 has no meaning
+  return 0
+}
 //Part 1: circle
 func part1() string{
   //Inputs
@@ -217,5 +237,7 @@ func part3(inUser string) {
 }
 
 func main() {
-   part3(part2(part1()))
+  testvar:=isFloat()
+  fmt.Println(testvar)
+   //part3(part2(part1()))
 }
