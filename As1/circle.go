@@ -9,11 +9,12 @@ import (
   "math"
 )
 
-
+//creates struct
 type Circle struct {
   x,y,radius float64
 }
 
+//accessor methods
 func (c Circle) getArea() float64 {
   return math.Pi*math.Pow(c.radius,2)
 }
