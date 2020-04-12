@@ -62,30 +62,14 @@ func part1() string{
   User:= scanner.Text()
 
   fmt.Println(User+", what is the x coordinate of your circle?")
-  scanner.Scan()
-  xCoordStr:= scanner.Text()
+  xCoord:=isFloat()
 
   fmt.Println(User+", what is the y coordinate of your circle?")
-  scanner.Scan()
-  yCoordStr:= scanner.Text()
+  yCoord:=isFloat()
 
   fmt.Println(User+", what is the radius of your circle?")
-  scanner.Scan()
-  radiusStr:= scanner.Text()
+  radius:=isFloat()
 
-  //convert strings to floats
-  xCoord, err := strconv.ParseFloat(xCoordStr, 64)
-  if err != nil {
-    log.Fatal(err)
-  }
-  yCoord, err := strconv.ParseFloat(yCoordStr, 64)
-  if err != nil {
-    log.Fatal(err)
-  }
-  radius, err := strconv.ParseFloat(radiusStr, 64)
-  if err != nil {
-    log.Fatal(err)
-  }
   //go uses structs instead of objects
   c:=Circle {
     x: xCoord,
@@ -123,21 +107,14 @@ const (
 
 func part2(inUser string) string{
   User:=inUser
-  scanner := bufio.NewScanner(os.Stdin)
+
   fmt.Println()
   fmt.Println()
   fmt.Println(User+", you are now entering the second part of the program.")
   fmt.Println("The program will ask for a length in meters and convert it to its equivalent miles, \n feet, and inches and output these values to \"meters.txt\"")
 
   fmt.Println("What is your length in meters (do not input units)?")
-  scanner.Scan()
-  metersStr:= scanner.Text()
-
-  //str to float conversion
-  meters, err := strconv.ParseFloat(metersStr, 64)
-  if err != nil {
-    log.Fatal(err)
-  }
+  meters:=isFloat()
 
   //dividing by miles
   metersRemain := math.Mod(meters,meters2miles);//remainder division to get meters left over that could not be converted to whole miles
@@ -237,7 +214,7 @@ func part3(inUser string) {
 }
 
 func main() {
-  testvar:=isFloat()
-  fmt.Println(testvar)
-   //part3(part2(part1()))
+  // testvar:=isFloat()
+  // fmt.Println(testvar)
+  part3(part2(part1()))
 }
