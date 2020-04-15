@@ -14,8 +14,33 @@ Option 4 will convert an input seconds into days, hours, minutes, and seconds.
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"bufio" //this is the scanner
+  "os" //to accept input from user
+	)
+
+func menu(inName string) {
+	name:=inName
+}
 
 func main() {
-	fmt.Printf("hello this is test two, one change later, update 2\n")
+
+	fmt.Println("Hi, this is a program that will give you a menu of options.")
+  fmt.Println("First, it will print a table of investments compounded daily given an initial investment, number of years, and range of integer interest rates.")
+  fmt.Println("Second, it will ask for a range of starting and ending values and print a multiplication table.")
+  fmt.Println("Third, it will prompt for an integer and print out all prime numbers up to that integer.")
+  fmt.Println("Fourth, it will convert inputted seconds into days, hours, minutes, and seconds.")
+  fmt.Println()
+	fmt.Println("Alright, let's begin! What is your name?")
+
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+  name:=scanner.Text()
+
+	//to address user
+  fmt.Println(name+", you are now entering the menu. The menu will repeat until you input option 5 to quit.")
+
+  menu(name)
+
 }
