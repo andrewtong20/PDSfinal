@@ -22,6 +22,40 @@ import (
 
 func menu(inName string) {
 	name:=inName
+
+	var input int
+	for ok := true; ok; ok = (input != 5) {
+		fmt.Println("Option 1: Investment table.")
+		fmt.Println("Option 2: Multiplication table.")
+		fmt.Println("Option 3: Prime number generator.")
+		fmt.Println("Option 4: Time conversion.")
+		fmt.Println("Option 5: Quit.")
+		fmt.Println("The table will repeat itself until you quit.")
+
+    n, err := fmt.Scanln(&input)
+		//THIS BOUNDS CHECK DOES NOT WORK RIGHT NOW
+    if n < 1 || err != nil {
+
+      fmt.Println("invalid input")
+      break
+    }
+
+    switch input {
+    case 1:
+      fmt.Println("Investment table incomplete")
+		case 2:
+			fmt.Println("multi table incomplete")
+		case 3:
+			fmt.Println("prime number generator incomplete")
+		case 4:
+			fmt.Println("time version incomplete")
+    case 5:
+			fmt.Println(name+", thank you for using this program!")
+    default:
+      fmt.Println("this is what default does")
+    }
+}
+
 }
 
 func main() {
