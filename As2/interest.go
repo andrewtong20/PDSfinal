@@ -1,33 +1,49 @@
 //This method constructs an interest table given a range of interest rates, number of years, and an initial investment
 //formatting will be off for large investments or large amounts of years
 
+package main
+
 import (
   "fmt"
+  "math"
+  "strconv"
 )
 
 
-func interest(initial, low, high, MAXyear):
-    balance=0
-    daysInYear=365.0
-    percentToDecimal=100.0
+func interest(inInitial float64, inLow int, inHigh int, inMAXyear int) {
+    initial:=inInitial
+    low:=inLow
+    high:=inHigh
+    MAXyear:=inMAXyear
+    daysInYear:=365.0
+    percentToDecimal:=100.0
 
     //Column heading
     //Spaces to center
-    print("                                   Years")
+    fmt.Println("                                   Years")
 
 
-    for year in range(1,MAXyear+1):
-        sys.stdout.write("%16d"% (year))
-    print()
+    for year:=1; year<=MAXyear; year++ {
+      fmt.Printf("%16d",year)
+    }
 
-    print("Interest Rate: ")
+    fmt.Println()
 
-    for rate in range(low, high+1):
+    fmt.Println("Interest Rate: ")
+
+    for rate:=low; rate<=high; rate++ {
          //row heading
-        sys.stdout.write(str(rate)+"%     ")
+         fmt.Print(strconv.Itoa(rate)+"%     ")
 
-        for year in range(1, MAXyear+1):
-            balance=initial*pow((1+rate/percentToDecimal/daysInYear), daysInYear*year)
-            //2 decimal places because money only goes to 2 decimal places
-            sys.stdout.write("$%10.2f     "%(balance))
-        print()
+         for year:=1; year<=MAXyear; year++ {
+             balance:=initial*math.Pow((1+float64(rate)/percentToDecimal/daysInYear), daysInYear*float64(year))
+             //2 decimal places because money only goes to 2 decimal places
+             fmt.Printf("$%10.2f     ",balance)
+
+           }
+         fmt.Println()
+
+      }
+
+
+}

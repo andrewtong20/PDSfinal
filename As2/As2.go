@@ -18,7 +18,52 @@ import (
 	"fmt"
 	"bufio" //this is the scanner
   "os" //to accept input from user
+	"strconv"
 	)
+
+//Float bounds check
+func isFloat() float64 {
+  scanner := bufio.NewScanner(os.Stdin)
+
+  for true {
+
+    fmt.Print("Input: ")
+    scanner.Scan()
+
+    input := scanner.Text()
+    if inputConv, err := strconv.ParseFloat(input, 64); err == nil {
+      return inputConv
+    } else {
+      fmt.Println("This is not a number. Please enter a valid number.")
+    }
+
+
+  }
+  //function has to return something; 0 has no meaning
+  return 0
+}
+
+//Integer bounds check
+func isInteger() int {
+  scanner := bufio.NewScanner(os.Stdin)
+
+  for true {
+
+    fmt.Print("Input: ")
+    scanner.Scan()
+
+    input := scanner.Text()
+    if inputConv, err := strconv.Atoi(input); err == nil {
+      return inputConv
+    } else {
+      fmt.Println("This is not a number. Please enter a valid number.")
+    }
+
+
+  }
+  //function has to return something; 0 has no meaning
+  return 0
+}
 
 func menu(inName string) {
 	name:=inName
@@ -42,7 +87,39 @@ func menu(inName string) {
 
     switch input {
     case 1:
-      fmt.Println("Investment table incomplete")
+			fmt.Println(name+ ", you chose option 1, where you input an initial investment, lowest and highest \n integer interest rates, and the number of years invested to make a daily compound interest table.\nFormatting of the table will be off for large investments.")
+      fmt.Println("Please enter your initial investment.")
+      initial:=isFloat()
+
+      //indefinite bounds check
+      for initial<=0 {
+          fmt.Println("Your investment can only be a positive amount! Please enter again.")
+          initial=isFloat()
+				}
+
+      //no range bounds check for interest rates because user can enter any (even negative)
+      fmt.Println("Enter lowest integer interest rate (ex: 3% would be 3 not .03)")
+      low:=isInteger()
+      fmt.Println("Enter highest integer interest rate (ex: 9% would be 9 not .09)")
+      high:=isInteger()
+
+      //upper bound cannot be lower than lower bound
+      for high<=low {
+          fmt.Println("Your input was the same or lower than the lowest integer interest rate. \nPlease enter a higher integer interest rate.")
+          high=isInteger()
+				}
+
+      fmt.Println("How many whole years will you invest?")
+      MAXyear:=isInteger()
+
+      //realistic bounds restriction for time
+      for MAXyear<0 {
+          fmt.Println("Time cannot be negative. Please enter the whole amount of years you will invest.")
+          MAXyear=isInteger()
+				}
+
+      //formatting of table will be off for large initial investments or large amount of years
+      interest(initial, low, high, MAXyear);
 		case 2:
 			fmt.Println("multi table incomplete")
 		case 3:
