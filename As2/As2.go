@@ -126,16 +126,40 @@ func menu(inName string) {
       fmt.Println("If you enter a higher starting value than ending value, they will be flipped automatically.")
       //because of this feature, starting does not have to be less than end and so I don't have that bounds check
       fmt.Println("Enter your integer starting value.")
+
       start:=isInteger()
+			//factors can't be negative bounds check
+			for start<0 {
+				fmt.Println("Factor cannot be negative. Please enter again.")
+				start=isInteger()
+			}
       fmt.Println("Enter your integer ending value.")
       end:=isInteger()
 
-			//SHOULD I BOUNDS CHECK FOR NEGATIVE FACTORS????
+			//factors can't be negative bounds check
+			for end<0 {
+				fmt.Println("Factor cannot be negative. Please enter again.")
+				end=isInteger()
+			}
 
       //formatting of table will be off for large factors
       multiplicationTable(start,end);
 		case 3:
-			fmt.Println("prime number generator incomplete")
+			fmt.Println(name+", you chose Option 3, where you enter an integer to create a list of all prime numbers up to that integer.")
+
+      fmt.Println("Please enter your integer.")
+      primeTarget:=isInteger()
+
+      //prime bounds check
+      for primeTarget<2 {
+          print("2 is the first prime number, so you have to enter an integer greater than 2. Please enter again")
+          primeTarget=isInteger()
+			}
+      //if the primeTarget is a prime number, will include that value
+      fmt.Print("The prime numbers up to "+strconv.Itoa(primeTarget)+" are ")
+
+      primeList(primeTarget)
+
 		case 4:
 			fmt.Println("time version incomplete")
     case 5:
