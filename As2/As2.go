@@ -56,7 +56,7 @@ func isInteger() int {
     if inputConv, err := strconv.Atoi(input); err == nil {
       return inputConv
     } else {
-      fmt.Println("This is not a number. Please enter a valid number.")
+      fmt.Println("This is not an integer. Please enter a valid number.")
     }
 
 
@@ -78,10 +78,10 @@ func menu(inName string) {
 		fmt.Println("The table will repeat itself until you quit.")
 
     n, err := fmt.Scanln(&input)
-		//THIS BOUNDS CHECK DOES NOT WORK RIGHT NOW
-    if n < 1 || err != nil {
 
-      fmt.Println("invalid input")
+    for n < 1 || err != nil {
+
+      fmt.Println("Input has to be an integer within range.")
       break
     }
 
@@ -161,11 +161,23 @@ func menu(inName string) {
       primeList(primeTarget)
 
 		case 4:
-			fmt.Println("time version incomplete")
+			fmt.Println(name+", you chose Option 4, where a time in seconds to convert to days, hours, minutes, and seconds.")
+      fmt.Println("Please enter a time in seconds (decimals allowed)")
+      seconds:=isFloat()
+
+      //time can't be negative bounds check
+      for (seconds<0) {
+          fmt.Println("Time cannot be negative. Please enter your time as a positive value in seconds.")
+          seconds=isFloat()
+				}
+
+      timeConvert(seconds)
     case 5:
 			fmt.Println(name+", thank you for using this program!")
+			break
     default:
-      fmt.Println("this is what default does")
+      fmt.Println("Wrong input. Try again.")//This only works if you enter integers.
+
     }
 	}
 
