@@ -1,28 +1,42 @@
 //This method takes in a starting and ending factor and creates the corresponding multiplication table.
 //Formatting of table will be off for large factors
-import sys
+package main
 
-def multiplicationTable(start,end):
+import (
+  "fmt"
+  "strconv"
+)
+
+func multiplicationTable(inStart int,inEnd int) {
+    start:=inStart
+    end:=inEnd
+
     //so that it does not matter that start has to be less than end
-    if (start>end):
-        temp=start
-        start=end
-        end=temp
+    if start>end {
+      temp:=start
+      start=end
+      end=temp
+    }
 
-    result=0
+    result:=0
 
     //print table column heading
-    for column in range(start,end+1):
-        sys.stdout.write("%10d"% column)
-    print()
+    for column:=start; column<=end; column++ {
+        fmt.Printf("%10d", column)
+    }
+
+    fmt.Println()
 
     //print table columns
 
-    for row in range(start, end+1):
+    for row:=start;row<=end; row++ {
         //print table row heading
-        sys.stdout.write(str(row)) #takes account for top left corner space
+        fmt.Print(strconv.Itoa(row)) //takes account for top left corner space
 
-        for column in range(start, end+1):
+        for column:=start; column<=end; column++ {
             result=row*column
-            sys.stdout.write("%10d"% result) #formatting may be off for large factors
-        print()
+            fmt.Printf("%10d", result) //formatting may be off for large factors
+        }
+        fmt.Println()
+    }
+}
