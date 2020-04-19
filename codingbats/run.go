@@ -14,3 +14,8 @@ import (
   "os" //to accept input from user
   "strconv"
 )
+
+func main() {
+  //maybe do switch eventually
+
+}
