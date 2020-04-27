@@ -14,7 +14,7 @@ package main
 func front11(inA []int, inB []int) []int {
   a:=inA
   b:=inB
-  if(len(a) > 0 && b.len(b) > 0) {
+  if(len(a) > 0 && len(b) > 0) {
       return []int{a[0], b[0]}
   } else if(len(a) > 0) {
       return []int{a[0]}
@@ -22,5 +22,5 @@ func front11(inA []int, inB []int) []int {
       return []int{b[0]}
   }
 
-  return []int{nil} //maybe get rid of nil??
+  return make([]int,0)
 }

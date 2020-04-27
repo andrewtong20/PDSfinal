@@ -15,28 +15,6 @@ import (
   "strconv"
 )
 
-//Float bounds check
-func isFloat() float64 {
-  scanner := bufio.NewScanner(os.Stdin)
-
-  for true {
-
-    fmt.Print("Input: ")
-    scanner.Scan()
-
-    input := scanner.Text()
-    if inputConv, err := strconv.ParseFloat(input, 64); err == nil {
-      return inputConv
-    } else {
-      fmt.Println("This is not a number. Please enter a valid number.")
-    }
-
-
-  }
-  //function has to return something; 0 has no meaning
-  return 0
-}
-
 //Integer bounds check
 func isInteger() int {
   scanner := bufio.NewScanner(os.Stdin)
@@ -82,16 +60,56 @@ func menu(inName string) {
     case 1:
       fmt.Println("You have decided to test front11.")
       fmt.Println("Instructions are: Given 2 int arrays, a and b, of any length, return a new array with \nthe first element of each array. If either array is length 0, ignore that array.")
+      fmt.Println("Begin inputting array A.")
+      fmt.Println("What is the length of array A?")
+      lengthA:=isInteger()
+
+      var arrayA []int
+
+      for i:=0;i<lengthA; i++ {
+        fmt.Print("Element " +strconv.Itoa(i)+" ")
+        arrayAInput:=isInteger()
+        arrayA=append(arrayA,arrayAInput)
+      }
+
+      fmt.Println("Begin inputting array B.")
+      fmt.Println("What is the length of array B?")
+      lengthB:=isInteger()
+
+      var arrayB []int
+
+      for i:=0;i<lengthB; i++ {
+        fmt.Print("Element " +strconv.Itoa(i)+" ")
+        arrayBInput:=isInteger()
+        arrayB=append(arrayB,arrayBInput)
+      }
+
+      arrayOutput:=front11(arrayA, arrayB)
+
+      fmt.Printf("Array Output: %v\n", arrayOutput)
+
 
 		case 2:
       fmt.Println("You have decided to test luckySum")
       fmt.Println("Instructions are: Given 3 int values, a b c, return their sum. However, if one of the \nvalues is 13 then it does not count towards the sum and values to its right do not count. \nSo for example, if b is 13, then both b and c do not count.")
+      fmt.Println("Enter int a.")
+      intA:=isInteger()
+      fmt.Println("Enter int b.")
+      intB:=isInteger()
+      fmt.Println("Enter int c.")
+      intC:=isInteger()
+
+      sum:=luckySum(intA, intB, intC)
+      fmt.Println("Sum Output: "+strconv.Itoa(sum))
 
 		case 3:
       fmt.Println("You have decided to test bunnyEars2")
-      fmt.Println("We have bunnies standing in a line, numbered 1, 2, ... The odd bunnies (1, 3, ..) have \nthe normal 2 ears. The even bunnies (2, 4, ..) we'll say have 3 ears, because they each have \na raised foot. Recursively return the number of ears in the bunny line 1, 2, ... n \n(without loops or multiplication)."
+      fmt.Println("We have bunnies standing in a line, numbered 1, 2, ... The odd bunnies (1, 3, ..) have \nthe normal 2 ears. The even bunnies (2, 4, ..) we'll say have 3 ears, because they each have \na raised foot. Recursively return the number of ears in the bunny line 1, 2, ... n \n(without loops or multiplication).")
+      fmt.Println("How many bunnies do you have?")
+      bunnies:=isInteger()
 
-
+      bunnyEars:=bunnyEars2(bunnies)
+      fmt.Println("Bunny Ears Output: "+strconv.Itoa(bunnyEars))
 
     case 4:
 			fmt.Println(name+", thank you for using this program!")
