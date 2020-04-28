@@ -18,7 +18,8 @@ import (
 	"fmt"
 	"bufio" //this is the scanner
   "os" //to accept input from user
-	"strconv"
+	"strconv" //convert strings to ints/floats
+	"math"//calculations
 	)
 
 //Float bounds check
@@ -65,6 +66,164 @@ func isInteger() int {
   return 0
 }
 
+//Interest table method
+//This method constructs an interest table given a range of interest rates, number of years, and an initial investment
+//formatting will be off for large investments or large amounts of years
+func interest(inInitial float64, inLow int, inHigh int, inMAXyear int) {
+    initial:=inInitial
+    low:=inLow
+    high:=inHigh
+    MAXyear:=inMAXyear
+    daysInYear:=365.0
+    percentToDecimal:=100.0
+
+    //Column heading
+    //Spaces to center
+    fmt.Println("                                   Years")
+
+
+    for year:=1; year<=MAXyear; year++ {
+      fmt.Printf("%16d",year)
+    }
+
+    fmt.Println()
+
+    fmt.Println("Interest Rate: ")
+
+    for rate:=low; rate<=high; rate++ {
+         //row heading
+         fmt.Print(strconv.Itoa(rate)+"%     ")
+
+         for year:=1; year<=MAXyear; year++ {
+             balance:=initial*math.Pow((1+float64(rate)/percentToDecimal/daysInYear), daysInYear*float64(year))
+             //2 decimal places because money only goes to 2 decimal places
+             fmt.Printf("$%10.2f     ",balance)
+
+           }
+         fmt.Println()
+
+      }
+
+}
+
+//multiplication table method
+//This method takes in a starting and ending factor and creates the corresponding multiplication table.
+//Formatting of table will be off for large factors
+func multiplicationTable(inStart int,inEnd int) {
+    start:=inStart
+    end:=inEnd
+
+    //so that it does not matter that start has to be less than end
+    if start>end {
+      temp:=start
+      start=end
+      end=temp
+    }
+
+    result:=0
+
+    //print table column heading
+    for column:=start; column<=end; column++ {
+        fmt.Printf("%10d", column)
+    }
+
+    fmt.Println()
+
+    //print table columns
+
+    for row:=start;row<=end; row++ {
+        //print table row heading
+        fmt.Print(strconv.Itoa(row)) //takes account for top left corner space
+
+        for column:=start; column<=end; column++ {
+            result=row*column
+            fmt.Printf("%10d", result) //formatting may be off for large factors
+        }
+        fmt.Println()
+    }
+}
+
+//prime generator methods
+//This method takes the user's inputted integer, creates a list of numbers up to that integer, and tests to see if these numbers are prime.
+func isPrime(inRunningInteger int) bool {
+    runningInteger:=inRunningInteger
+    for divisor:=2; divisor<runningInteger; divisor++ {
+    //should not divide by itself so does not include runningInteger
+        if (runningInteger%divisor==0) {
+            return false
+          }
+    }
+    return true //when no other factors from 2 to one minus the entered integer are not divisors of the integer
+}
+func primeList(inPrimeTarget int) {
+    primeTarget:=inPrimeTarget
+    for runningInteger:=2; runningInteger<=primeTarget; runningInteger++ {
+        //runningInteger is potential prime number ot be printed
+        //start at 2 because 1 is not a prime number
+
+        if (isPrime(runningInteger)) {
+          fmt.Print(strconv.Itoa(runningInteger)+" ")
+        }
+
+    }
+    fmt.Println()//adds next line for the table
+}
+
+//time converter methods
+//This method takes user's inputted time in seconds and converts it to days, hours, minutes, and the remaining seconds.
+const (
+  //constants, conversion factors from Google
+  seconds2days=86400
+  seconds2hours=3600
+  seconds2minutes=60
+)
+
+func timeConvert(inSeconds float64) {
+    //global variables, initialized
+    seconds:=inSeconds
+
+    //Output
+    fmt.Println("Your time of "+strconv.FormatFloat(seconds,'f', -1, 64) +" seconds is equivalent to:")
+    //prints all values of time conversion
+    getSeconds(getMinutes(getHours(getDays(seconds)))) //these methods are nested due to their return values
+
+}
+//finding days
+func getDays(inSeconds float64) float64 {
+    seconds:=inSeconds
+    secondsRemain := math.Mod(seconds,seconds2days)//remainder division to get seconds left over that could not be converted to whole days
+    days := (seconds-secondsRemain)/seconds2days //integer division to get the days in integer form from seconds
+    daysFinal:= int(days) //convert to integer so that the miles won't have the unnecessary decimal of .0 when displaying it
+    fmt.Println(strconv.Itoa(daysFinal)+" days")
+    return secondsRemain //returns the secondsRemain to pass into next method (getHours)
+  }
+//finding hours
+func getHours(inSecondsRemain float64) float64{
+    secondsRemain:=inSecondsRemain
+    secondsRemain2:=math.Mod(secondsRemain,seconds2hours)//remainder division to get seconds left over not divisible into hours
+    hours:= (secondsRemain-secondsRemain2)/seconds2hours//integer division to get hours in integer form from seconds
+    hoursFinal:= int(hours)//removes unnecessary .0 for visual pleasure
+    fmt.Println(strconv.Itoa(hoursFinal)+" hours")
+    return secondsRemain2 //returns the secondsRemain2 to pass into next method
+  }
+//finding minutes
+func getMinutes(inSecondsRemain2 float64) float64{
+    secondsRemain2:=inSecondsRemain2
+    secondsRemain3:=math.Mod(secondsRemain2,seconds2minutes)//remainder divisiont to get seconds left over not divisible to minutes
+    minutes:=(secondsRemain2-secondsRemain3)/seconds2minutes//integer division to get minutes in integer form from seconds
+    minutesFinal:=int(minutes)//removes unnecessary .0
+    fmt.Println(strconv.Itoa(minutesFinal)+" minutes")
+    return secondsRemain3 //returns to pass into next method
+  }
+//finding seconds
+func getSeconds(inSecondsRemain3 float64) {
+
+    secondsFinal:= inSecondsRemain3
+    //round to 2 decimal places for balance between both accuracy and clutter (in case user enters in a float number of seconds)
+    fmt.Printf("%.2f seconds\n",(secondsFinal))
+  }
+
+//Menu method
 func menu(inName string) {
 	name:=inName
 
@@ -183,6 +342,7 @@ func menu(inName string) {
 
 }
 
+//main method (runs menu)
 func main() {
 
 	fmt.Println("Hi, this is a program that will give you a menu of options.")
